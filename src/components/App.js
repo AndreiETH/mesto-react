@@ -36,11 +36,11 @@ function handleEditAvatarClick () {
       <Footer />
 
       <PopupWithForm
-        name={'edit-popup'}
+        name='edit-popup'
         isOpen={isEditProfilePopupOpen}
-        title={'Редактировать профиль'}
-        onClose={''}
-        saveText={'Сохранить'}
+        title='Редактировать профиль'
+        onClose=''
+        saveText='Сохранить'
       >
         <input
           required
