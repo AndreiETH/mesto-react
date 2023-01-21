@@ -4,34 +4,54 @@ import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import { useState } from 'react';
-
+import ImagePopup from './ImagePopup';
 
 
 function App() {
-const [isEditProfilePopupOpen, setlIsEditProfilePopupOpen] = useState(false);
-const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isBinPopupOpen, setIsBinPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
 
-function handleEditProfileClick () {
-  setlIsEditProfilePopupOpen(true);
-  console.log('hi');
-}
 
-function handleAddPlaceClick () {
-  setIsAddPlacePopupOpen(true);
-}
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
 
-function handleEditAvatarClick () {
-  setIsEditAvatarPopupOpen(true);
-}
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsBinPopupOpen(false);
+    setSelectedCard(null);
+  }
+
+  function handleBinPopupClick(card) {
+    setIsBinPopupOpen(true);
+  }
 
   return (
     <div className="page">
       <Header />
       <Main
-        onEditProfile = {handleEditProfileClick}
-        onAddPlace = {handleAddPlaceClick}
-        onEditAvatar = {handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
+        onBinClick={handleBinPopupClick}
       />
       <Footer />
 
@@ -39,13 +59,13 @@ function handleEditAvatarClick () {
         name='edit-popup'
         isOpen={isEditProfilePopupOpen}
         title='Редактировать профиль'
-        onClose=''
+        onClose={closeAllPopups}
         saveText='Сохранить'
       >
         <input
           required
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
           className="popup__popup-form popup__popup-form_text_name"
           id="form-name"
           name="name"
@@ -54,8 +74,8 @@ function handleEditAvatarClick () {
         <span className="popup__error" id="form-name-error"></span>
         <input
           required
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
           className="popup__popup-form popup__popup-form_text_job"
           id="form-job"
           name="about"
@@ -68,19 +88,18 @@ function handleEditAvatarClick () {
         name='add-popup'
         isOpen={isAddPlacePopupOpen}
         title='Новое место'
-        onClose=''
+        onClose={closeAllPopups}
         saveText='Создать'
       >
         <input
           required
-          minlength="2"
-          maxlength="30"
+          minLength="2"
+          maxLength="30"
           className="popup__popup-form popup__popup-form_text_place"
           id="form-place"
           name="name"
           type="text"
-          placeholder="Название"
-          value="" />
+          placeholder="Название" />
         <span className="popup__error" id="form-place-error"></span>
         <input
           required
@@ -88,8 +107,7 @@ function handleEditAvatarClick () {
           id="form-image"
           name="link"
           type="url"
-          placeholder="Ссылка на картинку"
-          value="" />
+          placeholder="Ссылка на картинку" />
         <span className="popup__error" id="form-image-error"></span>
 
       </PopupWithForm>
@@ -98,7 +116,7 @@ function handleEditAvatarClick () {
         name='avatar-popup'
         isOpen={isEditAvatarPopupOpen}
         title='Обновить аватар'
-        onClose=''
+        onClose={closeAllPopups}
         saveText='Сохранить'
       >
         <input
@@ -108,42 +126,25 @@ function handleEditAvatarClick () {
           name="link"
           type="url"
           placeholder="Ссылка на картинку"
-          value="" />
+        />
         <span className="popup__error" id="form-avatar-error"></span>
 
       </PopupWithForm>
 
       <PopupWithForm
         name='bin-popup'
-        isOpen=''
+        isOpen={isBinPopupOpen}
         title='Вы уверены?'
-        onClose=''
+        onClose={closeAllPopups}
         saveText='Да'
-      >
+      />
 
-      </PopupWithForm>
+      <ImagePopup
+        isOpen={selectedCard}
+        onClose={closeAllPopups}
+        card={selectedCard}
+      />
 
-      <div className="popup" id="imagepopup">
-        <div className="popup__image-container">
-          <button className="popup__close-button" type="button" id="closeimagebutton"></button>
-          <img className="popup__image-zoom" src="#" alt="" />
-          <h2 className="popup__image-name"></h2>
-        </div>
-      </div>
-
-      <template className="cardTemplate">
-        <div className="element">
-          <button className="element__bin" type="button"></button>
-          <img className="element__image" src="#" alt="" />
-          <div className="element__info">
-            <h2 className="element__text">Карачаевск</h2>
-            <div className="element__likes">
-              <button className="element__heart" type="button" id="likebutton"></button>
-              <span className="element__like-count">0</span>
-            </div>
-          </div>
-        </div>
-      </template>
     </div>
   );
 }
