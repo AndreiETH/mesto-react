@@ -30,7 +30,7 @@ function App() {
         setCards((newArray) => newArray.filter((item) => card._id !== item._id));
         closeAllPopups();
       })
-      .catch()
+      .catch(err => console.log(err))
   }
 
 
@@ -52,7 +52,7 @@ function App() {
       .then((userInfo) => {
         setCurrentUser(userInfo);
       })
-      .catch()
+      .catch(err => console.log(err))
   }, []);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ function App() {
       .then((cards) => {
         setCards(cards);
       })
-      .catch()
+      .catch(err => console.log(err))
   }, []);
 
   // profile popup
@@ -74,7 +74,7 @@ function App() {
         setCurrentUser(newUser);
         closeAllPopups();
       })
-      .catch()
+      .catch(err => console.log(err))
   }
 
   // new card popup
@@ -88,7 +88,7 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch()
+      .catch(err => console.log(err))
   }
 
   // avatar profile
@@ -102,7 +102,7 @@ function App() {
         setCurrentUser(newUser);
         closeAllPopups();
       })
-      .catch()
+      .catch(err => console.log(err))
   }
 
   function handleCardClick(card) {

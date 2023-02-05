@@ -14,7 +14,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     useEffect(() => {
         avatarRef.current.value = '';
         setSaveText("Сохранить");
-      });
+      }, []);
 
     return (
         <PopupWithForm
