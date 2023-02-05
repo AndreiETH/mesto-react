@@ -2,8 +2,4 @@
     background-image: url(../../../images/likeactive.svg);
     background-repeat: no-repeat;
     cursor: pointer;
-    transition: opacity 1s linear 0s;
-}
-.element__heart_active:hover {
-    opacity: 0.6;
 }
