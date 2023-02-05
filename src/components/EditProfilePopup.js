@@ -49,7 +49,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 name="name"
                 type="text"
                 placeholder="Имя"
-                value={name}
+                value={name || ""}
                 onChange={handleNameChange}
             />
             <span className="popup__error" id="form-name-error"></span>
@@ -62,7 +62,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                 name="about"
                 type="text"
                 placeholder="О себе"
-                value={description}
+                value={description || ""}
                 onChange={handleDescriptionChange}
             />
             <span className="popup__error" id="form-job-error"></span>

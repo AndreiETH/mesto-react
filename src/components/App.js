@@ -2,7 +2,6 @@ import '../index.css';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import { useState, useEffect } from 'react';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/api';
@@ -31,24 +30,29 @@ function App() {
         setCards((newArray) => newArray.filter((item) => card._id !== item._id));
         closeAllPopups();
       })
+      .catch()
   }
 
 
   // add & delete like on card
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api.like(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
-    api.dislike(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    if (isLiked) {
+      api.dislike(card._id).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+    } else {
+      api.like(card._id).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      });
+    }
   }
   useEffect(() => {
     api.getMe()
       .then((userInfo) => {
         setCurrentUser(userInfo);
       })
+      .catch()
   }, []);
 
   useEffect(() => {
@@ -56,6 +60,7 @@ function App() {
       .then((cards) => {
         setCards(cards);
       })
+      .catch()
   }, []);
 
   // profile popup
@@ -69,6 +74,7 @@ function App() {
         setCurrentUser(newUser);
         closeAllPopups();
       })
+      .catch()
   }
 
   // new card popup
@@ -82,6 +88,7 @@ function App() {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
+      .catch()
   }
 
   // avatar profile
@@ -95,6 +102,7 @@ function App() {
         setCurrentUser(newUser);
         closeAllPopups();
       })
+      .catch()
   }
 
   function handleCardClick(card) {
